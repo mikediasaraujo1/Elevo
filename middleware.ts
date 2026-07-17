@@ -31,7 +31,7 @@ export async function middleware(request: NextRequest) {
 
   const { pathname } = request.nextUrl;
 
-  if (!user && (pathname.startsWith("/dashboard") || pathname.startsWith("/propostas"))) {
+  if (!user && (pathname.startsWith("/dashboard") || pathname.startsWith("/propostas") || pathname === "/assinar")) {
     const url = request.nextUrl.clone();
     url.pathname = "/login";
     return NextResponse.redirect(url);
@@ -47,5 +47,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/propostas/:path*", "/login", "/signup"],
+  matcher: ["/dashboard/:path*", "/propostas/:path*", "/assinar", "/login", "/signup"],
 };
