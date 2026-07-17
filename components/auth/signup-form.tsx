@@ -6,6 +6,7 @@ import { useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { PasswordStrengthIndicator } from "@/components/auth/password-strength-indicator";
 import { getPasswordStrength } from "@/lib/auth/password-strength";
+import { translateAuthError } from "@/lib/auth/translate-auth-error";
 import { createClient } from "@/lib/supabase/client";
 
 export function SignupForm() {
@@ -41,7 +42,7 @@ export function SignupForm() {
     });
 
     if (authError) {
-      setError(authError.message);
+      setError(translateAuthError(authError));
       setLoading(false);
       return;
     }
@@ -58,7 +59,7 @@ export function SignupForm() {
     });
 
     if (profileError) {
-      setError(profileError.message);
+      setError(translateAuthError(profileError.message));
       setLoading(false);
       return;
     }

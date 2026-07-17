@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
+import { translateAuthError } from "@/lib/auth/translate-auth-error";
 import { createClient } from "@/lib/supabase/client";
 
 export function LoginForm() {
@@ -25,7 +26,7 @@ export function LoginForm() {
     });
 
     if (authError) {
-      setError(authError.message);
+      setError(translateAuthError(authError));
       setLoading(false);
       return;
     }

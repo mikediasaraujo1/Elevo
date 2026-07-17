@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
+import { translateAuthError } from "@/lib/auth/translate-auth-error";
 import { createClient } from "@/lib/supabase/client";
 
 function getRedirectUrl(): string {
@@ -30,7 +31,7 @@ export function ForgotPasswordForm() {
     );
 
     if (authError) {
-      setError(authError.message);
+      setError(translateAuthError(authError));
       setLoading(false);
       return;
     }

@@ -6,6 +6,7 @@ import { useEffect, useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { PasswordStrengthIndicator } from "@/components/auth/password-strength-indicator";
 import { getPasswordStrength } from "@/lib/auth/password-strength";
+import { translateAuthError } from "@/lib/auth/translate-auth-error";
 import { createClient } from "@/lib/supabase/client";
 
 export function ResetPasswordForm() {
@@ -62,7 +63,7 @@ export function ResetPasswordForm() {
     const { error: authError } = await supabase.auth.updateUser({ password });
 
     if (authError) {
-      setError(authError.message);
+      setError(translateAuthError(authError));
       setLoading(false);
       return;
     }
