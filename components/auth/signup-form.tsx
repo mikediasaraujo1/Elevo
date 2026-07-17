@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
+import { PasswordStrengthIndicator } from "@/components/auth/password-strength-indicator";
+import { getPasswordStrength } from "@/lib/auth/password-strength";
 import { createClient } from "@/lib/supabase/client";
 
 export function SignupForm() {
@@ -14,9 +16,18 @@ export function SignupForm() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  const passwordStrength = getPasswordStrength(password);
+  const isPasswordWeak = passwordStrength === "weak";
+
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
+
+    if (isPasswordWeak) {
+      setError("Use pelo menos 8 caracteres, uma maiúscula e um número.");
+      return;
+    }
+
     setLoading(true);
 
     const supabase = createClient();
@@ -120,17 +131,17 @@ export function SignupForm() {
             type="password"
             autoComplete="new-password"
             required
-            minLength={6}
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Mínimo 6 caracteres"
+            placeholder="Mínimo 8 caracteres"
             className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
           />
+          <PasswordStrengthIndicator password={password} showRequirements />
         </div>
 
         <button
           type="submit"
-          disabled={loading}
+          disabled={loading || isPasswordWeak}
           className="w-full rounded-lg bg-elevo-gold px-4 py-3 text-sm font-semibold text-elevo-bg transition-colors hover:bg-elevo-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
         >
           {loading ? "Criando conta..." : "Criar conta"}

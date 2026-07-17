@@ -74,9 +74,17 @@ export function LoginForm() {
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="password" className="block text-sm font-medium text-elevo-cream">
-            Senha
-          </label>
+          <div className="flex items-center justify-between">
+            <label htmlFor="password" className="block text-sm font-medium text-elevo-cream">
+              Senha
+            </label>
+            <Link
+              href="/esqueci-senha"
+              className="text-xs font-medium text-elevo-gold transition-colors hover:text-elevo-cream"
+            >
+              Esqueci minha senha
+            </Link>
+          </div>
           <input
             id="password"
             type="password"
