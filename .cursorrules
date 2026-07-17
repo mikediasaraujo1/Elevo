@@ -1,0 +1,18 @@
+Projeto: ELEVO — SaaS para corretores autônomos de imóveis no Brasil
+Stack: Next.js 14 App Router, Supabase, TypeScript, Tailwind CSS, shadcn/ui
+
+Identidade visual:
+- Background: #0D0D16
+- Surface: #14141F
+- Gold: #C4920A
+- Cream: #F7F2EA
+- Smoke: #7A7A8A
+- Border: rgba(196,146,10,.22)
+
+Padrões obrigatórios:
+- Server Components por padrão, Client só com interatividade real
+- Supabase: createServerClient (server), createBrowserClient (client)
+- Sempre TypeScript tipado, nunca usar 'any'
+- Tabelas: profiles, proposals, proposal_views
+- RLS sempre ativo
+- proposals.slug é a URL pública /p/[slug]
