@@ -26,6 +26,31 @@ export function formatDateTime(date: string): string {
   }).format(new Date(date));
 }
 
+export function formatMetricDateTime(date: string): string {
+  const parsed = new Date(date);
+  const now = new Date();
+
+  const isToday =
+    parsed.getDate() === now.getDate() &&
+    parsed.getMonth() === now.getMonth() &&
+    parsed.getFullYear() === now.getFullYear();
+
+  const time = new Intl.DateTimeFormat("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(parsed);
+
+  if (isToday) {
+    return `Hoje, ${time}`;
+  }
+
+  const month = new Intl.DateTimeFormat("pt-BR", { month: "short" })
+    .format(parsed)
+    .replace(/\./g, "");
+
+  return `${parsed.getDate()} ${month}, ${time}`;
+}
+
 export function generateProposalSlug(): string {
   return nanoid(12);
 }

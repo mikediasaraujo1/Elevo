@@ -12,7 +12,7 @@ import {
   getSevenDaysAgoIso,
 } from "@/lib/dashboard/analytics";
 import { createClient } from "@/lib/supabase/server";
-import { formatDateTime } from "@/lib/utils";
+import { formatMetricDateTime } from "@/lib/utils";
 
 interface DashboardPageProps {
   searchParams: Promise<{ assinatura?: string }>;
@@ -100,15 +100,17 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
             label="Mais visualizada"
             value={metrics.mostViewedTitle ?? "—"}
             icon={METRIC_ICONS.star}
+            variant="text"
           />
           <MetricCard
             label="Última abertura"
             value={
               metrics.lastOpenedAt
-                ? formatDateTime(metrics.lastOpenedAt)
+                ? formatMetricDateTime(metrics.lastOpenedAt)
                 : "—"
             }
             icon={METRIC_ICONS.clock}
+            variant="text"
           />
         </section>
 

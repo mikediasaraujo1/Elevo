@@ -17,7 +17,7 @@ export function DashboardSidebar() {
   return (
     <>
       {/* Desktop sidebar */}
-      <aside className="hidden w-56 shrink-0 border-r border-[var(--gold-border)] bg-[var(--surface)] lg:block">
+      <aside className="hidden w-56 shrink-0 border-r border-[rgba(196,146,10,0.15)] bg-[rgba(10,10,18,0.95)] lg:block">
         <div className="sticky top-0 flex h-screen flex-col px-4 py-6">
           <Link
             href="/dashboard"
@@ -40,10 +40,10 @@ export function DashboardSidebar() {
                   key={item.href}
                   href={item.href}
                   className={cn(
-                    "rounded-lg px-3 py-2.5 text-sm transition-all duration-200",
+                    "text-sm transition-all duration-200",
                     isActive
-                      ? "border-l-2 border-[var(--gold)] bg-[var(--gold-dim)] pl-[10px] font-medium text-[var(--gold-light)]"
-                      : "border-l-2 border-transparent text-[var(--text-secondary)] hover:bg-[var(--surface-hover)] hover:text-[var(--text-primary)]"
+                      ? "rounded-r-lg rounded-l-none border-l-2 border-[#C4920A] bg-[rgba(196,146,10,0.12)] px-4 py-[10px] font-medium text-[#E0B84A]"
+                      : "rounded-lg px-4 py-[10px] text-[#7A7A8A] hover:bg-[rgba(196,146,10,0.06)] hover:text-[#C4920A]"
                   )}
                 >
                   {item.label}
@@ -55,7 +55,7 @@ export function DashboardSidebar() {
       </aside>
 
       {/* Mobile top nav */}
-      <nav className="flex gap-1 overflow-x-auto border-b border-[var(--gold-border)] bg-[var(--surface)] px-4 py-2 lg:hidden">
+      <nav className="flex gap-1 overflow-x-auto border-b border-[rgba(196,146,10,0.15)] bg-[rgba(10,10,18,0.95)] px-4 py-2 lg:hidden">
         {NAV_ITEMS.map((item) => {
           const isActive = pathname === item.href;
 
@@ -64,10 +64,10 @@ export function DashboardSidebar() {
               key={item.href}
               href={item.href}
               className={cn(
-                "shrink-0 rounded-lg px-3 py-2 text-xs font-medium transition-colors",
+                "shrink-0 rounded-lg px-4 py-[10px] text-xs font-medium transition-colors",
                 isActive
-                  ? "bg-[var(--gold-dim)] text-[var(--gold-light)]"
-                  : "text-[var(--text-secondary)]"
+                  ? "border-l-2 border-[#C4920A] bg-[rgba(196,146,10,0.12)] text-[#E0B84A]"
+                  : "text-[#7A7A8A] hover:bg-[rgba(196,146,10,0.06)] hover:text-[#C4920A]"
               )}
             >
               {item.label}

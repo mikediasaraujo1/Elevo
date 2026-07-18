@@ -1,18 +1,35 @@
 import { GlassCard } from "@/components/ui/glass-card";
+import { cn } from "@/lib/utils/cn";
 
 interface MetricCardProps {
   label: string;
   value: string;
   icon: React.ReactNode;
+  variant?: "numeric" | "text";
 }
 
-export function MetricCard({ label, value, icon }: MetricCardProps) {
+export function MetricCard({
+  label,
+  value,
+  icon,
+  variant = "numeric",
+}: MetricCardProps) {
+  const isText = variant === "text";
+
   return (
     <GlassCard hover className="relative !p-5">
       <div className="absolute right-4 top-4 text-[var(--gold)] opacity-60">
         {icon}
       </div>
-      <p className="line-clamp-2 text-[36px] font-bold leading-tight text-[var(--gold-light)]">
+      <p
+        className={cn(
+          "flex h-11 min-w-0 items-center text-[var(--gold-light)]",
+          isText
+            ? "truncate text-[15px] font-semibold leading-snug"
+            : "text-[36px] font-bold leading-none"
+        )}
+        title={isText ? value : undefined}
+      >
         {value}
       </p>
       <p className="mt-2 text-[13px] font-medium uppercase tracking-[1px] text-[var(--text-secondary)]">
