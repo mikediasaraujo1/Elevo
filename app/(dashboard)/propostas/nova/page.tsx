@@ -3,25 +3,23 @@ import { ProposalForm } from "@/components/proposals/proposal-form";
 
 export default function NovaPropostaPage() {
   return (
-    <main className="mx-auto max-w-3xl px-6 py-12">
+    <main className="mx-auto max-w-7xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
       <div className="mb-8">
         <Link
           href="/dashboard"
-          className="text-sm text-elevo-smoke transition-colors hover:text-elevo-cream"
+          className="text-sm text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)]"
         >
           ← Voltar ao dashboard
         </Link>
-        <h1 className="mt-4 text-2xl font-semibold text-elevo-cream">
+        <h1 className="mt-4 text-2xl font-semibold text-[var(--text-primary)]">
           Nova proposta
         </h1>
-        <p className="mt-1 text-sm text-elevo-smoke">
+        <p className="mt-1 text-sm text-[var(--text-secondary)]">
           Preencha os dados do imóvel para criar uma proposta profissional
         </p>
       </div>
 
-      <div className="rounded-xl border border-elevo-border bg-elevo-surface p-6 sm:p-8">
-        <ProposalForm />
-      </div>
+      <ProposalForm />
     </main>
   );
 }

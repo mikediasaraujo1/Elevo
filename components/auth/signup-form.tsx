@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { PasswordStrengthIndicator } from "@/components/auth/password-strength-indicator";
+import { ButtonGold } from "@/components/ui/button-gold";
 import { getPasswordStrength } from "@/lib/auth/password-strength";
 import { translateAuthError } from "@/lib/auth/translate-auth-error";
 import { createClient } from "@/lib/supabase/client";
@@ -71,13 +72,12 @@ export function SignupForm() {
   return (
     <AuthLayout
       title="Criar conta"
-      subtitle="Comece a enviar propostas profissionais"
       footer={
         <>
           Já tem conta?{" "}
           <Link
             href="/login"
-            className="font-medium text-elevo-gold transition-colors hover:text-elevo-cream"
+            className="font-medium text-[var(--gold-light)] transition-colors hover:text-[var(--text-primary)]"
           >
             Entrar
           </Link>
@@ -92,7 +92,7 @@ export function SignupForm() {
         )}
 
         <div className="space-y-2">
-          <label htmlFor="name" className="block text-sm font-medium text-elevo-cream">
+          <label htmlFor="name" className="block text-sm font-medium text-[var(--text-primary)]">
             Nome
           </label>
           <input
@@ -103,12 +103,12 @@ export function SignupForm() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Seu nome completo"
-            className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
+            className="input-elevo"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="email" className="block text-sm font-medium text-elevo-cream">
+          <label htmlFor="email" className="block text-sm font-medium text-[var(--text-primary)]">
             E-mail
           </label>
           <input
@@ -119,12 +119,12 @@ export function SignupForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="seu@email.com"
-            className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
+            className="input-elevo"
           />
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="password" className="block text-sm font-medium text-elevo-cream">
+          <label htmlFor="password" className="block text-sm font-medium text-[var(--text-primary)]">
             Senha
           </label>
           <input
@@ -135,18 +135,14 @@ export function SignupForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="Mínimo 8 caracteres"
-            className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
+            className="input-elevo"
           />
           <PasswordStrengthIndicator password={password} showRequirements />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading || isPasswordWeak}
-          className="w-full rounded-lg bg-elevo-gold px-4 py-3 text-sm font-semibold text-elevo-bg transition-colors hover:bg-elevo-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
-        >
+        <ButtonGold type="submit" disabled={loading || isPasswordWeak} fullWidth className="!h-12">
           {loading ? "Criando conta..." : "Criar conta"}
-        </button>
+        </ButtonGold>
       </form>
     </AuthLayout>
   );

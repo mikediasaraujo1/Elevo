@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { ButtonGold } from "@/components/ui/button-gold";
 
 export function SubscribeButton() {
   const [loading, setLoading] = useState(false);
@@ -32,14 +33,15 @@ export function SubscribeButton() {
       {error && (
         <p className="mb-4 text-center text-sm text-red-300">{error}</p>
       )}
-      <button
+      <ButtonGold
         type="button"
         onClick={handleSubscribe}
         disabled={loading}
-        className="w-full rounded-lg bg-elevo-gold px-6 py-3.5 text-sm font-semibold text-elevo-bg transition-colors hover:bg-elevo-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
+        fullWidth
+        className="!h-12"
       >
         {loading ? "Redirecionando..." : "Assinar agora"}
-      </button>
+      </ButtonGold>
     </div>
   );
 }

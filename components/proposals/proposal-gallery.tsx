@@ -12,8 +12,10 @@ export function ProposalGallery({ fotos, titulo }: ProposalGalleryProps) {
 
   if (fotos.length === 0) {
     return (
-      <div className="flex aspect-[4/3] items-center justify-center rounded-xl border border-elevo-border bg-elevo-surface">
-        <p className="text-sm text-elevo-smoke">Sem fotos disponíveis</p>
+      <div className="glass-card flex aspect-[4/3] items-center justify-center">
+        <p className="relative z-[1] text-sm text-[var(--text-secondary)]">
+          Sem fotos disponíveis
+        </p>
       </div>
     );
   }
@@ -24,13 +26,13 @@ export function ProposalGallery({ fotos, titulo }: ProposalGalleryProps) {
 
   return (
     <div className="space-y-3">
-      <div className="relative overflow-hidden rounded-xl border border-elevo-border bg-elevo-surface">
-        <div className="aspect-[4/3] sm:aspect-[16/10]">
+      <div className="glass-card relative overflow-hidden !p-0">
+        <div className="relative aspect-[4/3] sm:aspect-[16/10]">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
             src={fotos[activeIndex]}
             alt={`${titulo} — foto ${activeIndex + 1}`}
-            className="h-full w-full object-cover"
+            className="relative z-[1] h-full w-full object-cover"
           />
         </div>
 
@@ -39,7 +41,7 @@ export function ProposalGallery({ fotos, titulo }: ProposalGalleryProps) {
             <button
               type="button"
               onClick={() => goTo(activeIndex - 1)}
-              className="absolute left-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-elevo-bg/70 text-elevo-cream backdrop-blur-sm transition-colors hover:bg-elevo-bg/90"
+              className="absolute left-3 top-1/2 z-[2] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--gold-border)] bg-black/60 text-[var(--text-primary)] backdrop-blur-sm transition-colors hover:bg-black/80"
               aria-label="Foto anterior"
             >
               ‹
@@ -47,12 +49,12 @@ export function ProposalGallery({ fotos, titulo }: ProposalGalleryProps) {
             <button
               type="button"
               onClick={() => goTo(activeIndex + 1)}
-              className="absolute right-3 top-1/2 flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full bg-elevo-bg/70 text-elevo-cream backdrop-blur-sm transition-colors hover:bg-elevo-bg/90"
+              className="absolute right-3 top-1/2 z-[2] flex h-9 w-9 -translate-y-1/2 items-center justify-center rounded-full border border-[var(--gold-border)] bg-black/60 text-[var(--text-primary)] backdrop-blur-sm transition-colors hover:bg-black/80"
               aria-label="Próxima foto"
             >
               ›
             </button>
-            <span className="absolute bottom-3 right-3 rounded-md bg-elevo-bg/80 px-2.5 py-1 text-xs text-elevo-cream backdrop-blur-sm">
+            <span className="absolute bottom-3 right-3 z-[2] rounded-md border border-[var(--gold-border)] bg-black/70 px-2.5 py-1 text-xs text-[var(--text-primary)] backdrop-blur-sm">
               {activeIndex + 1} / {fotos.length}
             </span>
           </>
@@ -66,19 +68,15 @@ export function ProposalGallery({ fotos, titulo }: ProposalGalleryProps) {
               key={foto}
               type="button"
               onClick={() => setActiveIndex(index)}
-              className={`aspect-[4/3] overflow-hidden rounded-lg border transition-colors ${
+              className={`aspect-[4/3] overflow-hidden rounded-lg border transition-all ${
                 index === activeIndex
-                  ? "border-elevo-gold ring-1 ring-elevo-gold/50"
-                  : "border-elevo-border opacity-70 hover:opacity-100"
+                  ? "border-[var(--gold)] ring-1 ring-[var(--gold-glow)]"
+                  : "border-[var(--gold-border)] opacity-70 hover:opacity-100"
               }`}
               aria-label={`Ver foto ${index + 1}`}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                src={foto}
-                alt=""
-                className="h-full w-full object-cover"
-              />
+              <img src={foto} alt="" className="h-full w-full object-cover" />
             </button>
           ))}
         </div>

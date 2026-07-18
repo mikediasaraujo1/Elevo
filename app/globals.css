@@ -1,27 +1,231 @@
 @import "tailwindcss";
 
 :root {
-  --elevo-bg: #0d0d16;
-  --elevo-surface: #14141f;
-  --elevo-gold: #c4920a;
-  --elevo-cream: #f7f2ea;
-  --elevo-smoke: #7a7a8a;
-  --elevo-border: rgba(196, 146, 10, 0.22);
+  --bg-base: #08080f;
+  --bg-gradient: radial-gradient(ellipse at 50% 0%, #12101a 0%, #08080f 70%);
+  --surface: #0f0f1a;
+  --surface-elevated: #13131f;
+  --surface-hover: #17172a;
+  --gold: #c4920a;
+  --gold-light: #e0b84a;
+  --gold-dim: rgba(196, 146, 10, 0.15);
+  --gold-glow: rgba(196, 146, 10, 0.25);
+  --gold-border: rgba(196, 146, 10, 0.2);
+  --gold-border-strong: rgba(196, 146, 10, 0.45);
+  --cream: #f7f2ea;
+  --smoke: #7a7a8a;
+  --smoke-light: #9a9aaa;
+  --text-primary: #f0ede8;
+  --text-secondary: #8a8a9a;
+  --text-muted: #555565;
+  --border-subtle: rgba(255, 255, 255, 0.05);
+  --card-shadow: 0 0 0 1px rgba(196, 146, 10, 0.18),
+    0 4px 24px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(196, 146, 10, 0.12);
+  --card-shadow-hover: 0 0 0 1px rgba(196, 146, 10, 0.35),
+    0 8px 40px rgba(0, 0, 0, 0.5), 0 0 40px rgba(196, 146, 10, 0.08),
+    inset 0 1px 0 rgba(196, 146, 10, 0.2);
+  --glow-gold: 0 0 20px rgba(196, 146, 10, 0.3),
+    0 0 60px rgba(196, 146, 10, 0.1);
+
+  /* Legacy aliases */
+  --elevo-bg: var(--bg-base);
+  --elevo-surface: var(--surface);
+  --elevo-gold: var(--gold);
+  --elevo-cream: var(--cream);
+  --elevo-smoke: var(--smoke);
+  --elevo-border: var(--gold-border);
 }
 
 @theme inline {
-  --color-elevo-bg: var(--elevo-bg);
-  --color-elevo-surface: var(--elevo-surface);
-  --color-elevo-gold: var(--elevo-gold);
-  --color-elevo-cream: var(--elevo-cream);
-  --color-elevo-smoke: var(--elevo-smoke);
-  --color-elevo-border: var(--elevo-border);
+  --color-elevo-bg: var(--bg-base);
+  --color-elevo-surface: var(--surface);
+  --color-elevo-surface-elevated: var(--surface-elevated);
+  --color-elevo-surface-hover: var(--surface-hover);
+  --color-elevo-gold: var(--gold);
+  --color-elevo-gold-light: var(--gold-light);
+  --color-elevo-cream: var(--cream);
+  --color-elevo-smoke: var(--smoke);
+  --color-elevo-smoke-light: var(--smoke-light);
+  --color-elevo-border: var(--gold-border);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
 
 body {
-  background: var(--elevo-bg);
-  color: var(--elevo-cream);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
+  background: var(--bg-gradient);
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  font-family: var(--font-geist-sans), Inter, Arial, Helvetica, sans-serif;
+  font-feature-settings: "cv02", "cv03";
+  min-height: 100vh;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  background: radial-gradient(
+    ellipse at 50% -20%,
+    rgba(196, 146, 10, 0.04) 0%,
+    transparent 60%
+  );
+}
+
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+.glass-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  border: 1px solid var(--gold-border);
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.glass-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    135deg,
+    rgba(196, 146, 10, 0.08) 0%,
+    transparent 50%
+  );
+}
+
+.glass-card-hover:hover {
+  box-shadow: var(--card-shadow-hover);
+}
+
+.input-elevo {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid var(--gold-border);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 12px 16px;
+  color: var(--text-primary);
+  outline: none;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.input-elevo::placeholder {
+  color: var(--text-muted);
+}
+
+.input-elevo:focus {
+  border-color: var(--gold-border-strong);
+  box-shadow: 0 0 0 3px var(--gold-dim);
+}
+
+.auth-page {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 1rem;
+}
+
+.auth-page::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 400px;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(196, 146, 10, 0.08) 0%,
+    transparent 70%
+  );
+}
+
+.assinar-page::before {
+  background: radial-gradient(
+    ellipse at center,
+    rgba(196, 146, 10, 0.14) 0%,
+    transparent 65%
+  );
+}
+
+.pill-viewed {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid var(--gold-border);
+  background: rgba(196, 146, 10, 0.15);
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--gold-light);
+}
+
+.pill-waiting {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 9999px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(255, 255, 255, 0.05);
+  padding: 2px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--smoke-light);
+}
+
+.whatsapp-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 12px;
+  background: #25d366;
+  padding: 14px 24px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.whatsapp-btn:hover {
+  filter: brightness(1.08);
+  box-shadow: 0 4px 24px rgba(37, 211, 102, 0.35);
+}
+
+.dropzone-elevo {
+  width: 100%;
+  border-radius: 12px;
+  border: 2px dashed var(--gold-border);
+  background: var(--surface);
+  padding: 2rem 1rem;
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.dropzone-elevo:hover:not(:disabled) {
+  border-color: var(--gold);
+  background: var(--gold-dim);
+  color: var(--text-primary);
+}
+
+.section-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
 }

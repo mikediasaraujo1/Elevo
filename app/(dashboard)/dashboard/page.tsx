@@ -1,9 +1,11 @@
 import Link from "next/link";
 import { redirect } from "next/navigation";
-import { MetricCard } from "@/components/dashboard/metric-card";
+import { METRIC_ICONS, MetricCard } from "@/components/dashboard/metric-card";
+import { ProposalList } from "@/components/dashboard/proposal-list";
 import { ViewsChart } from "@/components/dashboard/views-chart";
-import { ProposalCard } from "@/components/proposals/proposal-card";
 import { TrialBanner } from "@/components/subscription/trial-banner";
+import { ButtonGold } from "@/components/ui/button-gold";
+import { GlassCard } from "@/components/ui/glass-card";
 import {
   buildLast7DaysChartData,
   computeDashboardMetrics,
@@ -62,25 +64,24 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
     <>
       {!isSubscribed && <TrialBanner />}
 
-      <main className="mx-auto max-w-6xl px-6 py-12">
+      <main className="mx-auto max-w-6xl flex-1 px-4 py-8 sm:px-6 sm:py-10">
         {assinatura === "sucesso" && (
-          <div className="mb-6 rounded-lg border border-elevo-gold/30 bg-elevo-gold/10 px-4 py-3 text-sm text-elevo-gold">
+          <div className="mb-6 rounded-lg border border-[var(--gold-border)] bg-[var(--gold-dim)] px-4 py-3 text-sm text-[var(--gold-light)]">
             Assinatura confirmada! Bem-vindo ao ELEVO Pro.
           </div>
         )}
 
         <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-elevo-cream">Propostas</h1>
-            <p className="mt-1 text-sm text-elevo-smoke">
-              Gerencie suas propostas imobiliárias
+            <h1 className="text-2xl font-semibold text-[var(--text-primary)]">
+              Dashboard
+            </h1>
+            <p className="mt-1 text-sm text-[var(--text-secondary)]">
+              Acompanhe o desempenho das suas propostas
             </p>
           </div>
-          <Link
-            href="/propostas/nova"
-            className="inline-flex items-center justify-center rounded-lg bg-elevo-gold px-5 py-2.5 text-sm font-semibold text-elevo-bg transition-colors hover:bg-elevo-gold/90"
-          >
-            Nova proposta
+          <Link href="/propostas/nova">
+            <ButtonGold className="!text-sm">Nova proposta</ButtonGold>
           </Link>
         </div>
 
@@ -88,14 +89,17 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
           <MetricCard
             label="Propostas enviadas"
             value={String(metrics.totalProposals)}
+            icon={METRIC_ICONS.proposals}
           />
           <MetricCard
             label="Total de visualizações"
             value={String(metrics.totalViews)}
+            icon={METRIC_ICONS.views}
           />
           <MetricCard
             label="Mais visualizada"
             value={metrics.mostViewedTitle ?? "—"}
+            icon={METRIC_ICONS.star}
           />
           <MetricCard
             label="Última abertura"
@@ -104,38 +108,32 @@ export default async function DashboardPage({ searchParams }: DashboardPageProps
                 ? formatDateTime(metrics.lastOpenedAt)
                 : "—"
             }
+            icon={METRIC_ICONS.clock}
           />
         </section>
 
-        <section className="mb-10 rounded-xl border border-elevo-border bg-elevo-surface p-6">
-          <h2 className="mb-6 text-sm font-semibold text-elevo-cream">
+        <GlassCard className="mb-10" hover>
+          <h2 className="mb-6 text-sm font-semibold text-[var(--text-primary)]">
             Visualizações nos últimos 7 dias
           </h2>
           <ViewsChart data={chartData} />
-        </section>
+        </GlassCard>
 
         {proposalList.length === 0 ? (
-          <div className="rounded-xl border border-elevo-border bg-elevo-surface px-6 py-16 text-center">
-            <p className="text-elevo-smoke">
+          <GlassCard className="py-16 text-center" hover>
+            <p className="text-[var(--text-secondary)]">
               Você ainda não tem propostas. Crie sua primeira.
             </p>
-            <Link
-              href="/propostas/nova"
-              className="mt-6 inline-flex items-center justify-center rounded-lg bg-elevo-gold px-5 py-2.5 text-sm font-semibold text-elevo-bg transition-colors hover:bg-elevo-gold/90"
-            >
-              Nova proposta
+            <Link href="/propostas/nova" className="mt-6 inline-block">
+              <ButtonGold className="!text-sm">Nova proposta</ButtonGold>
             </Link>
-          </div>
+          </GlassCard>
         ) : (
           <section>
-            <h2 className="mb-4 text-sm font-semibold text-elevo-cream">
+            <h2 className="mb-4 text-sm font-semibold uppercase tracking-wider text-[var(--text-secondary)]">
               Suas propostas
             </h2>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-              {proposalList.map((proposal) => (
-                <ProposalCard key={proposal.id} proposal={proposal} />
-              ))}
-            </div>
+            <ProposalList proposals={proposalList} />
           </section>
         )}
       </main>

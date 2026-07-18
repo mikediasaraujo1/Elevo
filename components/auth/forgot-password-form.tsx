@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
+import { ButtonGold } from "@/components/ui/button-gold";
 import { translateAuthError } from "@/lib/auth/translate-auth-error";
 import { createClient } from "@/lib/supabase/client";
 
@@ -43,13 +44,12 @@ export function ForgotPasswordForm() {
   return (
     <AuthLayout
       title="Esqueci minha senha"
-      subtitle="Enviaremos um link para redefinir sua senha"
       footer={
         <>
           Lembrou a senha?{" "}
           <Link
             href="/login"
-            className="font-medium text-elevo-gold transition-colors hover:text-elevo-cream"
+            className="font-medium text-[var(--gold-light)] transition-colors hover:text-[var(--text-primary)]"
           >
             Voltar ao login
           </Link>
@@ -58,13 +58,13 @@ export function ForgotPasswordForm() {
     >
       {sent ? (
         <div className="space-y-4 text-center">
-          <div className="rounded-lg border border-elevo-gold/30 bg-elevo-gold/10 px-4 py-3 text-sm text-elevo-cream">
+          <div className="rounded-lg border border-[var(--gold-border)] bg-[var(--gold-dim)] px-4 py-3 text-sm text-[var(--text-primary)]">
             E-mail enviado! Verifique sua caixa de entrada e siga o link para
             redefinir sua senha.
           </div>
           <Link
             href="/login"
-            className="inline-block text-sm font-medium text-elevo-gold transition-colors hover:text-elevo-cream"
+            className="inline-block text-sm font-medium text-[var(--gold-light)] transition-colors hover:text-[var(--text-primary)]"
           >
             Voltar ao login
           </Link>
@@ -80,7 +80,7 @@ export function ForgotPasswordForm() {
           <div className="space-y-2">
             <label
               htmlFor="email"
-              className="block text-sm font-medium text-elevo-cream"
+              className="block text-sm font-medium text-[var(--text-primary)]"
             >
               E-mail
             </label>
@@ -92,17 +92,13 @@ export function ForgotPasswordForm() {
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="seu@email.com"
-              className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
+              className="input-elevo"
             />
           </div>
 
-          <button
-            type="submit"
-            disabled={loading}
-            className="w-full rounded-lg bg-elevo-gold px-4 py-3 text-sm font-semibold text-elevo-bg transition-colors hover:bg-elevo-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
-          >
+          <ButtonGold type="submit" disabled={loading} fullWidth className="!h-12">
             {loading ? "Enviando..." : "Enviar link de recuperação"}
-          </button>
+          </ButtonGold>
         </form>
       )}
     </AuthLayout>

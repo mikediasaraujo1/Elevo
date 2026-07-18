@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
+import { ButtonGold } from "@/components/ui/button-gold";
 import { translateAuthError } from "@/lib/auth/translate-auth-error";
 import { createClient } from "@/lib/supabase/client";
 
@@ -38,13 +39,12 @@ export function LoginForm() {
   return (
     <AuthLayout
       title="Entrar"
-      subtitle="Acesse sua conta para gerenciar propostas"
       footer={
         <>
           Não tem conta?{" "}
           <Link
             href="/signup"
-            className="font-medium text-elevo-gold transition-colors hover:text-elevo-cream"
+            className="font-medium text-[var(--gold-light)] transition-colors hover:text-[var(--text-primary)]"
           >
             Criar conta
           </Link>
@@ -59,7 +59,10 @@ export function LoginForm() {
         )}
 
         <div className="space-y-2">
-          <label htmlFor="email" className="block text-sm font-medium text-elevo-cream">
+          <label
+            htmlFor="email"
+            className="block text-sm font-medium text-[var(--text-primary)]"
+          >
             E-mail
           </label>
           <input
@@ -70,18 +73,21 @@ export function LoginForm() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="seu@email.com"
-            className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
+            className="input-elevo"
           />
         </div>
 
         <div className="space-y-2">
           <div className="flex items-center justify-between">
-            <label htmlFor="password" className="block text-sm font-medium text-elevo-cream">
+            <label
+              htmlFor="password"
+              className="block text-sm font-medium text-[var(--text-primary)]"
+            >
               Senha
             </label>
             <Link
               href="/esqueci-senha"
-              className="text-xs font-medium text-elevo-gold transition-colors hover:text-elevo-cream"
+              className="text-xs font-medium text-[var(--gold-light)] transition-colors hover:text-[var(--text-primary)]"
             >
               Esqueci minha senha
             </Link>
@@ -94,17 +100,13 @@ export function LoginForm() {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             placeholder="••••••••"
-            className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
+            className="input-elevo"
           />
         </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-lg bg-elevo-gold px-4 py-3 text-sm font-semibold text-elevo-bg transition-colors hover:bg-elevo-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
-        >
+        <ButtonGold type="submit" disabled={loading} fullWidth className="!h-12">
           {loading ? "Entrando..." : "Entrar"}
-        </button>
+        </ButtonGold>
       </form>
     </AuthLayout>
   );

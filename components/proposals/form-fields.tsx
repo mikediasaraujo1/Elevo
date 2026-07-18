@@ -1,7 +1,6 @@
-const inputClassName =
-  "w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30";
+const labelClassName = "block text-sm font-medium text-[var(--text-primary)]";
 
-const labelClassName = "block text-sm font-medium text-elevo-cream";
+export const inputClassName = "input-elevo";
 
 interface FormFieldProps {
   id: string;
@@ -45,9 +44,13 @@ export function TextArea({
 }) {
   return (
     <FormField id={id} label={label}>
-      <textarea id={id} className={`${inputClassName} min-h-[120px] resize-y`} {...props} />
+      <textarea
+        id={id}
+        className={`${inputClassName} min-h-[120px] resize-y`}
+        {...props}
+      />
     </FormField>
   );
 }
 
-export { inputClassName, labelClassName };
+export { labelClassName };

@@ -1,24 +1,18 @@
 "use client";
 
 import { useState } from "react";
-import { getProposalUrl } from "@/lib/site-url";
 
-interface CopyLinkButtonProps {
-  slug: string;
-}
-
-export function CopyLinkButton({ slug }: CopyLinkButtonProps) {
+export function CopyLinkButton({ slug }: { slug: string }) {
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
-    const url = getProposalUrl(slug);
+    const url = `${window.location.origin}/p/${slug}`;
 
     try {
       await navigator.clipboard.writeText(url);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch {
-      // Fallback for older browsers
       const input = document.createElement("input");
       input.value = url;
       document.body.appendChild(input);
@@ -34,7 +28,7 @@ export function CopyLinkButton({ slug }: CopyLinkButtonProps) {
     <button
       type="button"
       onClick={handleCopy}
-      className="inline-flex items-center justify-center rounded-lg border border-elevo-border px-3 py-1.5 text-xs font-medium text-elevo-cream transition-colors hover:border-elevo-gold/50 hover:text-elevo-gold"
+      className="inline-flex items-center justify-center rounded-lg border border-[var(--gold-border)] px-3 py-1.5 text-xs font-medium text-[var(--text-primary)] transition-all hover:border-[var(--gold-border-strong)] hover:text-[var(--gold-light)] hover:shadow-[0_0_12px_rgba(196,146,10,0.15)]"
     >
       {copied ? "Copiado!" : "Copiar link"}
     </button>

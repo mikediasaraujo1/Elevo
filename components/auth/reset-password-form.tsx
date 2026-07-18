@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AuthLayout } from "@/components/auth/auth-layout";
 import { PasswordStrengthIndicator } from "@/components/auth/password-strength-indicator";
+import { ButtonGold } from "@/components/ui/button-gold";
 import { getPasswordStrength } from "@/lib/auth/password-strength";
 import { translateAuthError } from "@/lib/auth/translate-auth-error";
 import { createClient } from "@/lib/supabase/client";
@@ -75,26 +76,23 @@ export function ResetPasswordForm() {
   return (
     <AuthLayout
       title="Redefinir senha"
-      subtitle="Escolha uma nova senha para sua conta"
       footer={
-        <>
-          <Link
-            href="/login"
-            className="font-medium text-elevo-gold transition-colors hover:text-elevo-cream"
-          >
-            Voltar ao login
-          </Link>
-        </>
+        <Link
+          href="/login"
+          className="font-medium text-[var(--gold-light)] transition-colors hover:text-[var(--text-primary)]"
+        >
+          Voltar ao login
+        </Link>
       }
     >
       {!ready ? (
         <div className="space-y-4 text-center">
-          <p className="text-sm text-elevo-smoke">
+          <p className="text-sm text-[var(--text-secondary)]">
             Verificando link de recuperação...
           </p>
-          <p className="text-xs text-elevo-smoke/70">
+          <p className="text-xs text-[var(--text-muted)]">
             Se nada acontecer, solicite um novo link em{" "}
-            <Link href="/esqueci-senha" className="text-elevo-gold hover:underline">
+            <Link href="/esqueci-senha" className="text-[var(--gold-light)] hover:underline">
               Esqueci minha senha
             </Link>
             .
@@ -109,10 +107,7 @@ export function ResetPasswordForm() {
           )}
 
           <div className="space-y-2">
-            <label
-              htmlFor="password"
-              className="block text-sm font-medium text-elevo-cream"
-            >
+            <label htmlFor="password" className="block text-sm font-medium text-[var(--text-primary)]">
               Nova senha
             </label>
             <input
@@ -123,16 +118,13 @@ export function ResetPasswordForm() {
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
+              className="input-elevo"
             />
             <PasswordStrengthIndicator password={password} showRequirements />
           </div>
 
           <div className="space-y-2">
-            <label
-              htmlFor="confirmPassword"
-              className="block text-sm font-medium text-elevo-cream"
-            >
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-[var(--text-primary)]">
               Confirmar senha
             </label>
             <input
@@ -143,20 +135,16 @@ export function ResetPasswordForm() {
               value={confirmPassword}
               onChange={(e) => setConfirmPassword(e.target.value)}
               placeholder="••••••••"
-              className="w-full rounded-lg border border-elevo-border bg-elevo-bg px-4 py-3 text-elevo-cream placeholder:text-elevo-smoke/60 outline-none transition-colors focus:border-elevo-gold/50 focus:ring-1 focus:ring-elevo-gold/30"
+              className="input-elevo"
             />
             {confirmPassword && !passwordsMatch && (
               <p className="text-xs text-red-400">As senhas não coincidem.</p>
             )}
           </div>
 
-          <button
-            type="submit"
-            disabled={!canSubmit}
-            className="w-full rounded-lg bg-elevo-gold px-4 py-3 text-sm font-semibold text-elevo-bg transition-colors hover:bg-elevo-gold/90 disabled:cursor-not-allowed disabled:opacity-60"
-          >
+          <ButtonGold type="submit" disabled={!canSubmit} fullWidth className="!h-12">
             {loading ? "Salvando..." : "Redefinir senha"}
-          </button>
+          </ButtonGold>
         </form>
       )}
     </AuthLayout>
